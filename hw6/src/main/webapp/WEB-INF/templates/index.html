@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Тупо лучший сайт</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        body{
+            width: 600px;
+            justify-content: center;
+            margin: 1rem auto;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12" style="padding: 0.1rem">
+            <a th:href="@{/}" class="breadcrumb">Главная</a>
+        </div>
+    </div>
+</nav>
+
+<div class="collection">
+    <a th:href="@{/products}" class="collection-item">Список продуктов</a>
+    <a th:href="@{/users}" class="collection-item">Список пользователей</a>
+
+</div>
+</body>
+</html>
