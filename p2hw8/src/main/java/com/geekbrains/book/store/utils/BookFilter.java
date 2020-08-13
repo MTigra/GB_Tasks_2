@@ -4,11 +4,10 @@ import com.geekbrains.book.store.entities.Book;
 import com.geekbrains.book.store.entities.Genre;
 import com.geekbrains.book.store.repositories.specifications.BookSpecifications;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.MultiValueMap;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -16,23 +15,21 @@ public class BookFilter {
     private Specification<Book> spec;
     private String filterParams;
 
-    public BookFilter(Map<String, String> params) {
+    public BookFilter(MultiValueMap<String, String> params) {
         spec = Specification.where(null);
         if (params.containsKey("maxPrice")) {
-            spec = spec.and(BookSpecifications.priceLessOrEqualsThan(BigDecimal.valueOf(Double.parseDouble(params.get("maxPrice")))));
+            spec = spec.and(BookSpecifications.priceLessOrEqualsThan(BigDecimal.valueOf(Double.parseDouble(params.getFirst("maxPrice")))));
         }
         if (params.containsKey("minPrice")) {
-            spec = spec.and(BookSpecifications.priceGreaterThanOrEqualsTo(BigDecimal.valueOf(Double.parseDouble(params.get("minPrice")))));
+            spec = spec.and(BookSpecifications.priceGreaterThanOrEqualsTo(BigDecimal.valueOf(Double.parseDouble(params.getFirst("minPrice")))));
         }
         if (params.containsKey("titlePart")) {
-            spec = spec.and(BookSpecifications.titleLike(params.get("titlePart")));
+            spec = spec.and(BookSpecifications.titleLike(params.getFirst("titlePart")));
         }
         if (params.containsKey("genre")) {
-
             Specification<Book> genresSpecification = Specification.where(null);
             List<Genre> genresIds =
-                    Arrays.stream(params.get("genre")
-                            .split(","))
+                    params.get("genre").stream()
                             .map(String::trim).map(Long::parseLong)
                             .map(Genre::byId)
                             .collect(Collectors.toList());

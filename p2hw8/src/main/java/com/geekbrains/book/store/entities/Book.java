@@ -33,7 +33,6 @@ public class Book {
     @CollectionTable(name = "books_genres",
             joinColumns = @JoinColumn(name = "book_id"))
     @Column(name = "genre_id")
-    @Enumerated(EnumType.STRING)
     private List<Genre> genres;
 
     public String getTitle(){
