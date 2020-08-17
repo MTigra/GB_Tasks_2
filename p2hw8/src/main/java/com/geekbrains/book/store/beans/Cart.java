@@ -31,7 +31,7 @@ public class Cart {
                 .ifPresentOrElse(item -> {
                             item.setQuantity(item.getQuantity() + 1);
                             item.setTotalPrice(
-                                    item.getTotalPrice()
+                                    item.getBook().getPrice()
                                             .multiply(BigDecimal.valueOf(item.getQuantity()))
                             );
                         },
@@ -55,7 +55,7 @@ public class Cart {
                 .ifPresent(item -> {
                     item.setQuantity(quantity);
                     item.setTotalPrice(
-                            item.getTotalPrice()
+                            item.getBook().getPrice()
                                     .multiply(BigDecimal.valueOf(item.getQuantity()))
                     );
                 });

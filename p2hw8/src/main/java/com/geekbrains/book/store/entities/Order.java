@@ -1,6 +1,7 @@
 package com.geekbrains.book.store.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -31,7 +32,10 @@ public class Order {
 
     public Order(User user, List<OrderItem> items) {
         this.user = user;
-        orderItems = items;
+        orderItems = List.copyOf(items);
+        for (OrderItem o : orderItems){
+            o.setOrder(this);
+        }
         totalPrice = items.stream().map(OrderItem::getTotalPrice).reduce(new BigDecimal(0), BigDecimal::add);
 
     }
