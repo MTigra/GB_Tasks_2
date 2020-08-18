@@ -19,7 +19,7 @@ public class Lot {
     private BigDecimal current_price;
 
     @Version
-    private Long version;
+    private Integer version;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -56,6 +56,18 @@ public class Lot {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
