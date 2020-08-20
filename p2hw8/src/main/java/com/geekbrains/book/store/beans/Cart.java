@@ -63,7 +63,7 @@ public class Cart {
     }
 
     public void removeFromCart(Long bookId) {
-        OrderItem item = items.stream().filter(book -> book.getId().equals(bookId)).findFirst().orElseThrow(IllegalArgumentException::new);
+                OrderItem item = items.stream().filter(book -> book.getId().equals(bookId)).findFirst().orElseThrow(IllegalArgumentException::new);
         items.remove(item);
         refreshPrice();
     }

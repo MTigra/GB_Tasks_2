@@ -32,7 +32,7 @@ public class Order {
 
     public Order(User user, List<OrderItem> items) {
         this.user = user;
-        orderItems = List.copyOf(items);
+        orderItems = items;
         for (OrderItem o : orderItems){
             o.setOrder(this);
         }

@@ -26,6 +26,7 @@ public class OrderController {
         User user = usersService.findByUsername(principal.getName()).get();
         model.addAttribute("user", user);
         Order order = new Order(user, cart.getItems());
+        System.out.println("fff");
         ordersService.save(order);
         return "order-success";
     }
