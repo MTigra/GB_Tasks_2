@@ -1,8 +1,10 @@
 package com.geekbrains.book.store.services;
 
-import com.geekbrains.book.store.entities.Book;
+import com.geekbrains.book.store.Book;
 import com.geekbrains.book.store.exceptions.ResourceNotFoundException;
 import com.geekbrains.book.store.repositories.BookRepository;
+import com.geekbrains.book.store.repositories.BookRepositoryWS;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,13 +15,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class BookService {
-    private BookRepository bookRepository;
+@AllArgsConstructor
+public class BookServiceWS {
 
-    @Autowired
-    public void setBookRepository(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
+    private BookRepositoryWS bookRepository;
+
+
 
     @Transactional
     public List<Book> findAll() {
@@ -45,6 +46,4 @@ public class BookService {
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }
-
-
 }

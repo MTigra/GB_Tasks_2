@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "booksmvc")
 @Table(name = "books")
 @Data
 @NoArgsConstructor
@@ -36,7 +36,7 @@ public class Book {
     @Column(name = "genre_id")
     private List<Genre> genres;
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
