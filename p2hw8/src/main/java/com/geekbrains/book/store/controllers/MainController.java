@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
     @GetMapping
     public String showHomePage() {
-        return "about-page";
+        return "home-page";
     }
 }

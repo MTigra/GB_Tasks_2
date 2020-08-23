@@ -13,7 +13,7 @@
 <div class="container">
     <div th:replace="~{navigation :: navigation(BookStore)}"/>
 
-    <h1>Магазин книгssssssssssss</h1>
+    <h1>Магазин книг</h1>
     <br>
     <h3>Фильтр</h3>
     <form ng-submit="filterApplied()" method="get">
@@ -48,29 +48,30 @@
         </tr>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" ng-class="isFirst?'disabled':''">
+                <a ng-click="onPageChanged(currentPage-1)" class="page-link">
+                    Prev
+                    <!--               th:href="@{'/books/?p='+${page.previousOrFirstPageable().getPageNumber()+1}+'&'+${filteringQuery}}">Previous-->
+                </a>
+            </li>
+            <li class="page-item disabled" ng-if="currentPage + 10 < pageCount">
+                <a class="page-link svg-icon" href="#">
+                    <span data-feather="more-horizontal" width="20" height="20"></span>
+                </a>
+            </li>
+            <li class="page-item" ng-class="currentPage == $index+1? 'active' : ''"
+                ng-repeat="i in getNumbers(pageCount) track by $index">
+                <a class="page-link" ng-click="onPageChanged($index+1)"> {{$index + 1}}</a>
+                <!--            <a class="page-link" th:text="${i}" th:href="@{'/books/?p=' + ${i} +'&' + ${filteringQuery}}"></a>-->
+            </li>
+            <li class="page-item" ng-class="currentPage == pageCount ? 'disabled':''">
+                <a class="page-link" ng-click="onPageChanged(currentPage+1)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item" ng-class="isFirst?'disabled':''">
-            <a ng-click="onPageChanged(currentPage-1)" class="page-link">
-                Prev
-                <!--               th:href="@{'/books/?p='+${page.previousOrFirstPageable().getPageNumber()+1}+'&'+${filteringQuery}}">Previous-->
-            </a>
-        </li>
-        <li class="page-item disabled" ng-if="currentPage + 10 < pageCount">
-            <a class="page-link svg-icon" href="#">
-                <span data-feather="more-horizontal" width="20" height="20"></span>
-            </a>
-        </li>
-        <li class="page-item" ng-class="currentPage == $index+1? 'active' : ''"
-            ng-repeat="i in getNumbers(pageCount) track by $index">
-            <a class="page-link" ng-click="onPageChanged($index+1)"> {{$index + 1}}</a>
-            <!--            <a class="page-link" th:text="${i}" th:href="@{'/books/?p=' + ${i} +'&' + ${filteringQuery}}"></a>-->
-        </li>
-        <li class="page-item" ng-class="currentPage == pageCount ? 'disabled':''">
-            <a class="page-link" ng-click="onPageChanged(currentPage+1)">Next</a>
-        </li>
-    </ul>
-</nav>
+
 </body>
 </html>
