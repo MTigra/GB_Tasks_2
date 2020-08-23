@@ -38,7 +38,7 @@ public class BookController {
         paramsWithoutPage.remove("p");
         model.addAttribute("filteringQuery", Utils.paramsMapToFilteringString(paramsWithoutPage));
         model.addAttribute("pageCount", page.getTotalPages());
-        return "store-page";
+        return "book-store.html";
     }
 
     // Эта часть кода будет сильно скорректирована после темы Spring REST
@@ -46,20 +46,22 @@ public class BookController {
     @ResponseBody
     @CrossOrigin("*")
     public GetBooksResponse getBooks(@RequestParam(name = "p", defaultValue = "1") Integer pageIndex,
-                                  @RequestParam MultiValueMap<String, String> params) {
+                                     @RequestParam MultiValueMap<String, String> params) {
 
         BookFilter bookFilter = new BookFilter(params);
         Page<Book> page = bookService.findAll(bookFilter.getSpec(), pageIndex - 1, 5);
         MultiValueMap<String, String> paramsWithoutPage = new LinkedMultiValueMap<>(params);
         paramsWithoutPage.remove("p");
-        return new GetBooksResponse(page.getTotalPages(), page.getContent(), page.getNumber());
+        return new GetBooksResponse(page.getTotalPages(), page.getContent(), page.getNumber(), page.isFirst(), page.isLast());
     }
 }
 
 @Data
 @AllArgsConstructor
-class GetBooksResponse{
+class GetBooksResponse {
     private int pageCount;
     private List<Book> books;
     private int currentPage;
+    private boolean isFirst;
+    private boolean isLast;
 }
