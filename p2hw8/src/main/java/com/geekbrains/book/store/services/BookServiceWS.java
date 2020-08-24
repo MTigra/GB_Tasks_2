@@ -20,8 +20,6 @@ public class BookServiceWS {
 
     private BookRepositoryWS bookRepository;
 
-
-
     @Transactional
     public List<Book> findAll() {
         return bookRepository.findAll();

@@ -22,6 +22,14 @@ public class BooksEndpoint {
         this.bookService = bookService;
     }
 
+    //<x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bb="http://book.geekbrains.com/store">
+    //   <x:Header/>
+    //    <x:Body>
+    //        <bb:getBookByIdRequest>
+    //        <bb:id>10</bb:id>
+    //        </bb:getBookByIdRequest>
+    //    </x:Body>
+    //</x:Envelope>
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getBookByIdRequest")
     @ResponsePayload
     public GetBookByIdResponse getBookById(@RequestPayload GetBookByIdRequest request) {
@@ -30,6 +38,14 @@ public class BooksEndpoint {
         return response;
     }
 
+
+    // <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bb="http://book.geekbrains.com/store">
+    //   <x:Header/>
+    //    <x:Body>
+    //        <bb:getAllBooksRequest>
+    //        </bb:getAllBooksRequest>
+    //    </x:Body>
+    //</x:Envelope>
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllBooksRequest")
     @ResponsePayload
     public GetAllBooksResponse getAllBooks() {

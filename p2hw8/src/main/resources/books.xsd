@@ -35,14 +35,18 @@
             <xs:element name="description" type="xs:string"/>
             <xs:element name="price" type="xs:decimal"/>
             <xs:element name="publishYear" type="xs:int"/>
-            <xs:element name="genres">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="genre" type="tns:genre" maxOccurs="unbounded">
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:sequence>
+                <xs:element name="genre" type="tns:genre" maxOccurs="unbounded">
+                </xs:element>
+            </xs:sequence>
+<!--            <xs:element name="genres">-->
+<!--                <xs:complexType>-->
+<!--                    <xs:sequence>-->
+<!--                        <xs:element name="genre" type="tns:genre" maxOccurs="unbounded">-->
+<!--                        </xs:element>-->
+<!--                    </xs:sequence>-->
+<!--                </xs:complexType>-->
+<!--            </xs:element>-->
         </xs:sequence>
     </xs:complexType>
 
