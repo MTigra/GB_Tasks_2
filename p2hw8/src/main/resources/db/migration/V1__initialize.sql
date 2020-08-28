@@ -33,7 +33,7 @@ insert into books_genres (book_id, genre_id) values
 (2, 1),
 (3, 1),
 (4, 2),
-(2, 3),
+(2, 2),
 (4, 1),
 (4, 3),
 (5,1),
@@ -41,7 +41,7 @@ insert into books_genres (book_id, genre_id) values
 (7,1),
 (8,1),
 (9,2),
-(10,1),
+(10,3),
 (11,1);
 
 create table users (

@@ -19,8 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/profile/**").authenticated()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // ROLE_ADMIN, ROLE_SUPERADMIN
+                .antMatchers("/ws/**").permitAll()
                 .anyRequest().permitAll()
-                .and()
+                .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate")
