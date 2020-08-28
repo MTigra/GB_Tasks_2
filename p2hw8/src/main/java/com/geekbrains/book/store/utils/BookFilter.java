@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 public class BookFilter {
     private Specification<Book> spec;
-    private String filterParams;
 
     public BookFilter(MultiValueMap<String, String> params) {
         spec = Specification.where(null);

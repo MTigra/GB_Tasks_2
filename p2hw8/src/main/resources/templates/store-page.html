@@ -8,22 +8,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <div th:replace="~{navigation :: navigation(BookStore)}"/>
 
     <h1>Магазин книг</h1>
-    <!--    <br>-->
-    <!--    <h4>Фильтр:</h4>-->
-    <!--    <form th:action="@{'/all'}" method="get">-->
-    <!--        <div class="form-group">-->
-    <!--            <label>Максимальный размер</label>-->
-    <!--            <input th:value="${param.maxSize != null ? param.maxSize : null}" type="number" class="form-control form-control-sm" name="maxSize">-->
-    <!--        </div>-->
-    <!--        <button type="submit" class="btn btn-primary">Применить</button>-->
-    <!--    </form>-->
-
     <br>
     <h3>Фильтр</h3>
 
@@ -49,6 +40,7 @@
             <td>Цена</td>
             <td>Жанр</td>
             <td>Год издания</td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -58,6 +50,9 @@
             <td th:text="${b.price}"></td>
             <td th:text="${#strings.arrayJoin(b.getGenres(),',')}"></td>
             <td th:text="${b.publishYear}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{'/cart/add/' + ${b.id}}"><i class="fas fa-plus"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -79,7 +74,7 @@
                 <a class="page-link" th:text="${i}" th:href="@{'/books/?p=' + ${i} +'&' + ${filteringQuery}}"></a>
             </li>
             <li class="page-item"
-                th:classappend="${page.getPageable().getPageNumber() + 1 eq page.getTotalPages()} ? 'disabled'">
+                th:classappend="${page.getPageable().getPageNumber() + 1 eq page.getTotalPages()} ? 'disabled':''">
                 <a class="page-link"
                    th:href="@{'/books/?p=' + ${page.nextOrLastPageable().getPageNumber()+1} +'&' +${filteringQuery}}">
                     Next

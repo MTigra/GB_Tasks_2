@@ -2,22 +2,21 @@ package com.geekbrains.book.store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy
 public class BookStoreApplication {
     // Домашнее задание:
-    // 1. Добавить на html странице навигацию по страницам. Находясь
-    // на первом странице кнопка prev должна быть неактивна, то же
-    // самое и для кнопки next. При переходе между страницами фильтр
-    // не должен сбрасываться
-    // [ Панель навигации можно брать отсюда:
-    // https://getbootstrap.com/docs/4.5/components/pagination/ ]
-    // 2. Добавьте форму для фильтра, после фильтрации форма не должна
-    // сбрасываться
-    // 3. Добавьте каждой книге жанр: Фэнтези, Фантастика, Детектив
-    // в виде enum. Сделайте фильтр по одному или нескольким жанрам.
-    // Жанры выбираются как checkbox'ы. Упрощение: книга имеет только
-    // один жанр
+    // 1. Добавить корзину, корзина должна быть сессионным бином;
+    // @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    // Добавить возможность добавлять книги в корзину
+    // Сделать страницу с отображением книг в корзине
+    // 2. Книги в корзине должны группироваться, если пользователь
+    // захотел купить несколько экземпляров одной книги (книг у нас бесконечно много). Группируйте
+    // такие элементы в OrderItem(book_id, count, price)
+    // 3. При оформлении заказа, в базе данных должен появиться этот заказ.
+    // Заказ состоит из OrderItem и привязывается к пользователю
 
     public static void main(String[] args) {
         SpringApplication.run(BookStoreApplication.class, args);

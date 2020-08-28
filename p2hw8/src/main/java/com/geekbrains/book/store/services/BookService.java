@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -20,22 +21,27 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Transactional
     public List<Book> findAll() {
         return bookRepository.findAll();
     }
 
+    @Transactional
     public Page<Book> findAll(Specification<Book> spec, int page, int size) {
         return bookRepository.findAll(spec, PageRequest.of(page, size));
     }
 
+    @Transactional
     public Book findById(Long id) {
         return bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book with id: " + id + " not found"));
     }
 
+    @Transactional
     public Book saveOrUpdate(Book book) {
         return bookRepository.save(book);
     }
 
+    @Transactional
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }

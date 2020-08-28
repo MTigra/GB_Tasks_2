@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "books")
@@ -37,5 +38,22 @@ public class Book {
 
     public String getTitle(){
         return title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return publishYear == book.publishYear &&
+                id.equals(book.id) &&
+                title.equals(book.title) &&
+                description.equals(book.description) &&
+                price.equals(book.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, price, publishYear);
     }
 }
