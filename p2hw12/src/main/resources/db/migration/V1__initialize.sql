@@ -85,6 +85,7 @@ create table orders (
 id bigserial,
 user_id bigint not null,
 total_price numeric(8, 2) not null,
+status varchar(20),
 primary key(id),
 foreign key (user_id) references users (id));
 
