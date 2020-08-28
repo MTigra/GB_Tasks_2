@@ -3,6 +3,7 @@ package com.geekbrains.book.store.controllers;
 import com.geekbrains.book.store.beans.Cart;
 import com.geekbrains.book.store.entities.Book;
 import com.geekbrains.book.store.services.BookService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

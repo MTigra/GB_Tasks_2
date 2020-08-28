@@ -28,9 +28,13 @@ public class OrderItem {
     private Order order;
 
     public OrderItem(Book book) {
-        this.book=book;
+        this.book = book;
         this.quantity = 1;
         this.totalPrice = book.getPrice();
+
+    }
+
+    public OrderItem() {
 
     }
 }

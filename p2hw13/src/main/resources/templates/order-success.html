@@ -13,8 +13,8 @@
 <body>
 <div class="container">
     <div th:replace="~{navigation :: navigation(Profile)}"/>
-    <p>Отлично! Закакз оформлен! Большое спасибо, <span th:text="${@user.getUserName()}"></span>! </p>
-    <a th:class="btn btn-primary" th:href="@{'/books'}">Обратно в магазин</a>
+    <p>Отлично! Закакз оформлен! Большое спасибо, <span th:text="${userinfo.getUsername()}"></span>! </p>
+    <a class="btn btn-primary" th:href="@{'/books'}"> Обратно </a>
 </div>
 </body>
 </html>

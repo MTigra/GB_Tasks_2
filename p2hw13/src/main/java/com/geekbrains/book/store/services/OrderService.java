@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,5 +18,9 @@ public class OrderService {
     @Transactional
     public void save(Order order) {
         repository.save(order);
+    }
+
+    public Optional<Order> findById(Long id){
+        return repository.findById(id);
     }
 }
