@@ -8,13 +8,14 @@
         <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="connection.username">postgres</property>
         <property name="connection.password">postgres</property>
-        <property name="connection.pool_size">8</property>
+        <property name="connection.pool_size">1</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
         <property name="hbm2ddl.auto">validate</property>
 
-        <mapping class="com.martirosyan.p2hw3.model.Lot"/>
-        <mapping class="com.martirosyan.p2hw3.model.User"/>
+        <mapping class="com.martirosyan.hw2.model.Consumer"/>
+        <mapping class="com.martirosyan.hw2.model.Product"/>
+        <mapping class="com.martirosyan.hw2.model.Purchase"/>
     </session-factory>
 </hibernate-configuration>

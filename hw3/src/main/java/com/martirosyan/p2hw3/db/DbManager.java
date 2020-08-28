@@ -6,12 +6,23 @@ import org.hibernate.cfg.Configuration;
 
 public class DbManager {
 
-    public Session getSession() {
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .buildSessionFactory();
-        Session session = null;
-        session = factory.openSession();
-        return session;
+    private static SessionFactory sf = null;
+
+    private DbManager() {
+    }
+
+    public static SessionFactory getSessionFactory() {
+        if (sf == null) {
+
+            synchronized (DbManager.class) {
+
+                if (sf == null) {
+                    sf = new Configuration()
+                            .configure("hibernate.cfg.xml")
+                            .buildSessionFactory();
+                }
+            }
+        }
+        return sf;
     }
 }
