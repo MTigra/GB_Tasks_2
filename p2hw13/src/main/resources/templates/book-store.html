@@ -1,0 +1,77 @@
+<!doctype html>
+<html ng-app="app" ng-controller="filterController" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="dirPagination.js"></script>
+    <script src="filterController.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(BookStore)}"/>
+
+    <h1>Магазин книг</h1>
+    <br>
+    <h3>Фильтр</h3>
+    <form ng-submit="filterApplied()" method="get">
+        <div th:class="form-group">
+            <p>Категории</p>
+            <div th:class="form-check" th:each="genre : ${@genreService.getAllGenres()}">
+                <input th:type="checkbox" th:class="form-check-input" name="genre"
+                       th:value="${genre.getId()}">
+                <label th:class="form-check-label" th:text="${genre.getName()}"></label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Применить</button>
+        <a th:href="@{'/books'}" type="button" class="btn btn-warning">Удалить фильтр</a>
+    </form>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Цена</td>
+            <td>Год издания</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="b in books">
+            <td>{{b.title}}</td>
+            <td>{{b.description}}</td>
+            <td>{{b.price}}</td>
+            <td>{{b.publishYear}}</td>
+            <td>{{b.genres}}</td>
+            <td>
+                <a class="btn btn-primary" href="{{'cart/add/'+b.id}}">В корзину</i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" ng-class="isFirst?'disabled':''">
+                <a ng-click="onPageChanged(currentPage-1)" class="page-link">
+                    Prev
+                    <!--               th:href="@{'/books/?p='+${page.previousOrFirstPageable().getPageNumber()+1}+'&'+${filteringQuery}}">Previous-->
+                </a>
+            </li>
+            <li class="page-item disabled" ng-if="currentPage + 10 < pageCount">
+                <a class="page-link svg-icon" href="#">
+                    <span data-feather="more-horizontal" width="20" height="20"></span>
+                </a>
+            </li>
+            <li class="page-item" ng-class="currentPage == $index+1? 'active' : ''"
+                ng-repeat="i in getNumbers(pageCount) track by $index">
+                <a class="page-link" ng-click="onPageChanged($index+1)"> {{$index + 1}}</a>
+                <!--            <a class="page-link" th:text="${i}" th:href="@{'/books/?p=' + ${i} +'&' + ${filteringQuery}}"></a>-->
+            </li>
+            <li class="page-item" ng-class="currentPage == pageCount ? 'disabled':''">
+                <a class="page-link" ng-click="onPageChanged(currentPage+1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Book store</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(BookStore)}"/>
+
+    <h1>Магазин книг</h1>
+    <br>
+    <h3>Фильтр</h3>
+
+    <form th:accept="@{'/'}" method="get">
+        <div th:class="form-group">
+            <p>Категории</p>
+            <div th:class="form-check" th:each="genre : ${@genreService.getAllGenres()}">
+                <input th:type="checkbox" th:class="form-check-input" name="genre"
+                       th:checked="${filteringQuery.contains('genre='+genre.getId())}" th:value="${genre.getId()}">
+                <label th:class="form-check-label" th:text="${genre.getName()}"></label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Применить</button>
+        <a th:href="@{'/books'}" type="button" class="btn btn-warning">Удалить фильтр</a>
+    </form>
+    <br>
+    <h4>Список книг:</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Цена</td>
+            <td>Жанр</td>
+            <td>Год издания</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b : ${books}">
+            <td th:text="${b.title}"></td>
+            <td th:text="${b.description}"></td>
+            <td th:text="${b.price}"></td>
+            <td th:text="${#strings.arrayJoin(b.getGenres(),',')}"></td>
+            <td th:text="${b.publishYear}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{'/cart/add/' + ${b.id}}"><i class="fas fa-plus"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page.isFirst()?'disabled':''}">
+                <a class="page-link"
+
+                   th:href="@{'/books/?p='+${page.previousOrFirstPageable().getPageNumber()+1}+'&'+${filteringQuery}}">Previous
+                </a>
+            </li>
+            <li class="page-item disabled" th:if="${page.getPageable().getPageNumber() + 10 < page.getTotalPages()}">
+                <a class="page-link svg-icon" href="#">
+                    <span data-feather="more-horizontal" width="20" height="20"></span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${page.getNumber() +1 == i ? 'active' : ''}"
+                th:each="i : ${#numbers.sequence( 1, page.getTotalPages(), 1)}">
+                <a class="page-link" th:text="${i}" th:href="@{'/books/?p=' + ${i} +'&' + ${filteringQuery}}"></a>
+            </li>
+            <li class="page-item"
+                th:classappend="${page.getPageable().getPageNumber() + 1 eq page.getTotalPages()} ? 'disabled':''">
+                <a class="page-link"
+                   th:href="@{'/books/?p=' + ${page.nextOrLastPageable().getPageNumber()+1} +'&' +${filteringQuery}}">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
